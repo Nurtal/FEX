@@ -143,7 +143,22 @@ def extract_features(data_file:str) -> dict:
 if __name__ == "__main__":
 
     # Load the data
-    data_file = "data/toy_data.csv"
-    # s = run(data_file)
-    m = extract_features(data_file)
-    print(m)
+    # data_file = "data/toy_data.csv"
+    # # s = run(data_file)
+    # m = extract_features(data_file)
+    # print(m)
+
+    # Bene stuff
+    data_file_list = [
+        "/home/bran/Workspace/SIDEQUEST/Bene/thesis/feature_extraction/data/rnaseq_c3_vs_all.csv",
+        "/home/bran/Workspace/SIDEQUEST/Bene/thesis/feature_extraction/data/rnaseq_c3_vs_clust1.csv",
+        "/home/bran/Workspace/SIDEQUEST/Bene/thesis/feature_extraction/data/rnaseq_c3_vs_clust2.csv"
+    ]
+    for tf in data_file_list:
+        feature_to_coef = extract_features(tf)
+        save_file = open(tf.replace("/data/", "/fex/").replace(".csv", "_log_feature_extraction.csv"), "w")
+        save_file.write("FEATURE,IMPORTANCE\n")
+        for k in feature_to_coef:
+            save_file.write(f"{k},{feature_to_coef[k]}\n")
+        save_file.close()
+    
